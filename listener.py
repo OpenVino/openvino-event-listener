@@ -3,6 +3,7 @@ import json
 import time
 import mysql.connector
 import os
+from hexbytes import HexBytes
 
 contractAddress = '0x52B31871eFF4479ea7a71A12ea087DEbd33B2b01'
 
@@ -42,7 +43,7 @@ def handle_event(event):
 
         cursor = db.cursor()
         sql = "INSERT INTO roots(root, tx_hash) VALUES (%s,%s)"
-        val = [result.args["_root"].decode("utf-8"), result.transactionHash]
+        val = [w3.toHex(result[0]['args']['_root']), w3.toHex(result[0]['transactionHash'])]
         cursor.execute(sql, val)
         db.commit()
 
