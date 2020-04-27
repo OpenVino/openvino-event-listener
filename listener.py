@@ -15,6 +15,13 @@ contract = w3.eth.contract(address=contractAddress, abi=abi)
 
 disconnected = True
 
+print("====== ENV =======")
+print("host: " + os.getenv("DATABASE_HOST", default = 'localhost'))
+print("user: " + os.getenv("DATABASE_USERNAME", default = 'test'))
+print("passwd: " + os.getenv("DATABASE_PASSWORD", default = 'test123'))
+print("database: " + os.getenv("DATABASE_NAME", default = 'test123'))
+print("")
+
 def handle_event(event):
     global disconnected, w3
     receipt = w3.eth.waitForTransactionReceipt(event['transactionHash'])
@@ -29,8 +36,7 @@ def handle_event(event):
                 host=os.getenv("DATABASE_HOST", default = 'localhost'),
                 user=os.getenv("DATABASE_USERNAME", default = 'test'),
                 passwd=os.getenv("DATABASE_PASSWORD", default = 'test123'),
-                database=os.getenv("DATABASE_NAME", default = 'test_db'),
-                auth_plugin='mysql_native_password'
+                database=os.getenv("DATABASE_NAME", default = 'test_db')
             )
             disconnected = False
 
