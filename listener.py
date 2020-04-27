@@ -41,7 +41,7 @@ def handle_event(event):
             disconnected = False
 
         cursor = db.cursor()
-        sql = "INSERT INTO root(root, tx_hash) VALUES (%s,%s)"
+        sql = "INSERT INTO roots(root, tx_hash) VALUES (%s,%s)"
         val = [result.args["_root"].decode("utf-8"), result.transactionHash]
         cursor.execute(sql, val)
         db.commit()
