@@ -60,5 +60,14 @@ def log_loop(event_filter, poll_interval):
             handle_event(event)
             time.sleep(poll_interval)
 
+def all_logs(event_filter):
+    for event in event_filter.get_new_entries():
+            print(event)
+            handle_event(event)
+            time.sleep(poll_interval)
+
+block_filter_all = w3.eth.filter({'fromBlock': 0, 'toBlock':'latest', 'address': contractAddress})
+all_logs(block_filter_all)
+
 block_filter = w3.eth.filter({'fromBlock':'latest', 'address': contractAddress})
 log_loop(block_filter, 2)
